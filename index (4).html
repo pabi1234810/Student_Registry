@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Registry</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #4a90e2;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            overflow: hidden;
+        }
+        .header {
+            background: #4a90e2;
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 2.5em;
+        }
+        .header p {
+            margin: 10px 0 0 0;
+            opacity: 0.9;
+        }
+        .content {
+            display: flex;
+            min-height: 500px;
+        }
+        .form-section {
+            flex: 1;
+            padding: 30px;
+            background: #f8f9fa;
+            border-right: 1px solid #eee;
+        }
+        .display-section {
+            flex: 1;
+            padding: 30px;
+        }
+        .section-title {
+            font-size: 1.5em;
+            margin-bottom: 20px;
+            color: #333;
+            border-bottom: 3px solid #4a90e2;
+            padding-bottom: 10px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #555;
+        }
+        input, select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+        input:focus, select:focus {
+            border-color: #4a90e2;
+            outline: none;
+        }
+        .form-row {
+            display: flex;
+            gap: 15px;
+        }
+        .form-row .form-group {
+            flex: 1;
+        }
+        .btn {
+            background: #4a90e2;
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            width: 100%;
+        }
+        .btn:hover {
+            background: #357abd;
+        }
+        .stats {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+        .stat-card {
+            flex: 1;
+            background: #4a90e2;
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+        }
+        .stat-number {
+            font-size: 2em;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        .stat-label {
+            font-size: 0.9em;
+            opacity: 0.9;
+        }
+        .student-card {
+            background: #f8f9fa;
+            padding: 20px;
+            margin-bottom: 15px;
+            border-radius: 10px;
+            border-left: 5px solid #4a90e2;
+        }
+        .student-name {
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 10px;
+        }
+        .student-info {
+            color: #666;
+            margin-bottom: 10px;
+        }
+        .sgpa-badge {
+            background: #28a745;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 0.8em;
+            font-weight: bold;
+        }
+        .delete-btn {
+            background: #dc3545;
+            color: white;
+            border: none;
+            padding: 5px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.8em;
+            margin-top: 10px;
+        }
+        .delete-btn:hover {
+            background: #c82333;
+        }
+        .empty-message {
+            text-align: center;
+            color: #999;
+            font-style: italic;
+            padding: 40px;
+        }
+        @media (max-width: 768px) {
+            .content {
+                flex-direction: column;
+            }
+            .form-section {
+                border-right: none;
+                border-bottom: 1px solid #eee;
+            }
+            .form-row {
+                flex-direction: column;
+            }
+            .stats {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🎓 Student Registry</h1>
+            <p>Collaborative Academic Records Management</p>
+        </div>
+        
+        <div class="content">
+            <div class="form-section">
+                <h2 class="section-title">Add Student</h2>
+                <form id="studentForm">
+                    <div class="form-group">
+                        <label>Full Name</label>
+                        <input type="text" id="name" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Roll Number</label>
+                        <input type="text" id="rollNo" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" id="email" required>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Phone</label>
+                            <input type="tel" id="phone">
+                        </div>
+                        <div class="form-group">
+                            <label>Department</label>
+                            <select id="department" required>
+                                <option value="">Select Department</option>
+                                <option value="Computer Science">Computer Science</option>
+                                <option value="Electronics">Electronics</option>
+                                <option value="Mechanical">Mechanical</option>
+                                <option value="Civil">Civil</option>
+                                <option value="Electrical">Electrical</option>
+                                <option value="Information Technology">IT</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Academic Year</label>
+                            <select id="year" required>
+                                <option value="">Select Year</option>
+                                <option value="1st Year">1st Year</option>
+                                <option value="2nd Year">2nd Year</option>
+                                <option value="3rd Year">3rd Year</option>
+                                <option value="4th Year">4th Year</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Semester</label>
+                            <select id="semester" required>
+                                <option value="">Select Semester</option>
+                                <option value="1">1st Semester</option>
+                                <option value="2">2nd Semester</option>
+                                <option value="3">3rd Semester</option>
+                                <option value="4">4th Semester</option>
+                                <option value="5">5th Semester</option>
+                                <option value="6">6th Semester</option>
+                                <option value="7">7th Semester</option>
+                                <option value="8">8th Semester</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Current SGPA</label>
+                            <input type="number" id="sgpa" min="0" max="10" step="0.01" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Overall CGPA</label>
+                            <input type="number" id="cgpa" min="0" max="10" step="0.01">
+                        </div>
+                    </div>
+                    
+                    <button type="submit" class="btn">Add Student Record</button>
+                </form>
+            </div>
+            
+            <div class="display-section">
+                <h2 class="section-title">Student Records</h2>
+                
+                <div class="stats">
+                    <div class="stat-card">
+                        <div class="stat-number" id="totalStudents">0</div>
+                        <div class="stat-label">Total Students</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" id="avgSGPA">0.0</div>
+                        <div class="stat-label">Avg SGPA</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" id="avgCGPA">0.0</div>
+                        <div class="stat-label">Avg CGPA</div>
+                    </div>
+                </div>
+                
+                <div id="studentList">
+                    <div class="empty-message">No students added yet. Add the first record!</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        var students = [];
+        
+        function loadFromStorage() {
+            try {
+                var saved = localStorage.getItem('studentRecords');
+                if (saved) {
+                    students = JSON.parse(saved);
+                }
+            } catch (e) {
+                students = [];
+            }
+        }
+        
+        function saveToStorage() {
+            try {
+                localStorage.setItem('studentRecords', JSON.stringify(students));
+            } catch (e) {
+                console.log('Storage error');
+            }
+        }
+        
+        function updateDisplay() {
+            var totalEl = document.getElementById('totalStudents');
+            var sgpaEl = document.getElementById('avgSGPA');
+            var cgpaEl = document.getElementById('avgCGPA');
+            var listEl = document.getElementById('studentList');
+            
+            var total = students.length;
+            totalEl.textContent = total;
+            
+            if (total === 0) {
+                sgpaEl.textContent = '0.0';
+                cgpaEl.textContent = '0.0';
+                listEl.innerHTML = '<div class="empty-message">No students added yet. Add the first record!</div>';
+                return;
+            }
+            
+            var sgpaSum = 0;
+            var cgpaSum = 0;
+            var cgpaCount = 0;
+            
+            for (var i = 0; i < students.length; i++) {
+                sgpaSum += parseFloat(students[i].sgpa || 0);
+                if (students[i].cgpa && parseFloat(students[i].cgpa) > 0) {
+                    cgpaSum += parseFloat(students[i].cgpa);
+                    cgpaCount++;
+                }
+            }
+            
+            sgpaEl.textContent = (sgpaSum / total).toFixed(2);
+            cgpaEl.textContent = cgpaCount > 0 ? (cgpaSum / cgpaCount).toFixed(2) : '0.0';
+            
+            var html = '';
+            for (var i = 0; i < students.length; i++) {
+                var s = students[i];
+                html += '<div class="student-card">';
+                html += '<div class="student-name">' + s.name + ' (' + s.rollNo + ')</div>';
+                html += '<div class="student-info">';
+                html += '<strong>Department:</strong> ' + s.department + ' | ';
+                html += '<strong>Year:</strong> ' + s.year + ' | ';
+                html += '<strong>Semester:</strong> ' + s.semester + '<br>';
+                html += '<strong>Email:</strong> ' + s.email;
+                if (s.phone) html += ' | <strong>Phone:</strong> ' + s.phone;
+                html += '</div>';
+                html += '<div style="margin-top: 10px;">';
+                html += '<span class="sgpa-badge">SGPA: ' + s.sgpa + '</span>';
+                if (s.cgpa) html += ' <span class="sgpa-badge">CGPA: ' + s.cgpa + '</span>';
+                html += '</div>';
+                html += '<button class="delete-btn" onclick="deleteStudent(' + i + ')">Delete</button>';
+                html += '</div>';
+            }
+            listEl.innerHTML = html;
+        }
+        
+        function deleteStudent(index) {
+            if (confirm('Delete this student record?')) {
+                students.splice(index, 1);
+                saveToStorage();
+                updateDisplay();
+            }
+        }
+        
+        document.getElementById('studentForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            var student = {
+                name: document.getElementById('name').value,
+                rollNo: document.getElementById('rollNo').value,
+                email: document.getElementById('email').value,
+                phone: document.getElementById('phone').value,
+                department: document.getElementById('department').value,
+                year: document.getElementById('year').value,
+                semester: document.getElementById('semester').value,
+                sgpa: document.getElementById('sgpa').value,
+                cgpa: document.getElementById('cgpa').value
+            };
+            
+            // Check for duplicate roll number
+            for (var i = 0; i < students.length; i++) {
+                if (students[i].rollNo === student.rollNo) {
+                    alert('Roll number already exists!');
+                    return;
+                }
+            }
+            
+            students.push(student);
+            saveToStorage();
+            updateDisplay();
+            
+            // Reset form
+            document.getElementById('studentForm').reset();
+            
+            // Show success
+            var btn = document.querySelector('.btn');
+            var originalText = btn.textContent;
+            btn.textContent = '✓ Added Successfully!';
+            btn.style.background = '#28a745';
+            setTimeout(function() {
+                btn.textContent = originalText;
+                btn.style.background = '#4a90e2';
+            }, 2000);
+        });
+        
+        // Initialize
+        loadFromStorage();
+        updateDisplay();
+    </script>
+</body>
+</html>
